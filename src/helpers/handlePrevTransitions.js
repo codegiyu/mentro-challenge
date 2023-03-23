@@ -7,7 +7,6 @@ const handlePrevTransitions = (
   ) => {
     let newIndex = index + 1 <= 4 ? index + 1 : 0
     const background = DATA[newIndex].darkGreen ? "#609B6C" : "#4CAF50"
-    console.log(newIndex, background)
 
   if (rating0Status.current === "active") {
     rating0Status.current = "inactive-from-prev"
