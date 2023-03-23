@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//  GLOBAL VARIABLES
+
+$ff-poppins: "Poppins", "sans-serif";
+
+$bg-green: #4CAF50;
+$bg-lightGreen: #C5F8C7;
+$bg-darkGreen: #7ABD87;
+$bg-darkGreen2: #609B6C;
+$bg-alphaGreen: #00A10737;
+
+// GLOBAL MIXINS
+
+@mixin devices ($breakpoint) {
+  @if $breakpoint == xxl {
+    @media only screen and (min-width: 2000px) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl {
+    @media only screen and (max-width: 1439.99px) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media only screen and (max-width: 1199.99px) {
+      @content;
+    }
+  }
+  @if $breakpoint == md {
+    @media only screen and (max-width: 991.99px) {
+      @content;
+    }
+  }
+  @if $breakpoint == sm {
+    @media only screen and (max-width: 767.99px) {
+      @content;
+    }
+  }
+  @if $breakpoint == mobile {
+    @media only screen and (max-width: 475.99px) {
+      @content;
+    }
+  }
+}
