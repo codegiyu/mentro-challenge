@@ -1,5 +1,5 @@
 import DATA from "./data/data"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import ErrorBoundary from "./components/ErrorBoundary"
 import ankita from "./images/ankita.png"
 import keshav from "./images/keshav.png"
@@ -9,53 +9,55 @@ import prankur from "./images/prankur.png"
 import { BsArrowDown } from "react-icons/bs"
 import RatingStars from "./components/RatingStars"
 import helpers from "./helpers"
+import starsData from "./data/transitionElsData"
 
 function App() {
   const [index, setIndex] = useState(0)
   const [rotation, setRotation] = useState(0)
   const [imgRotation, setImgRotation] = useState(0)
   const [action, setAction] = useState("")
+  // const [transitionStatus, setTransitionStatus] = useState(0)
+  const [starsProps, setStarsProps] = useState(starsData)
 
   const background = DATA[index].darkGreen ? "#609B6C" : "#4CAF50"
   const bigCircleBackground = DATA[index].darkGreen ? "#7ABD87" : "#C5F8C7"
   
-  const namePlate0 = useRef(DATA[index].name)
-  const namePlate1 = useRef("")
-  const centerImg0 = useRef([DATA[index].image, DATA[index].name])
-  const centerImg1 = useRef([DATA[index].image, DATA[index].name])
-  const rating0 = useRef(DATA[index].rating)
-  const rating1 = useRef("5.0")
-  const stars0 = useRef({ rating: DATA[index].rating, dark: DATA[index].darkGreen })
-  const stars1 = useRef({ rating: DATA[index].rating, dark: DATA[index].darkGreen })
-  const name0 = useRef(DATA[index].name)
-  const name1 = useRef("")
-  const job0 = useRef(DATA[index].job)
-  const job1 = useRef("")
-  const desc0 = useRef(DATA[index].description)
-  const desc1 = useRef("")
-  const buttonBg0 = useRef(background)
-  const buttonBg1 = useRef("")
-  const rating0Status = useRef("active")
-  const rating1Status = useRef("ready-for-next")
-  const stars0Status = useRef("active")
-  const stars1Status = useRef("ready-for-next")
-  const name0Status = useRef("active")
-  const name1Status = useRef("ready-for-next")
-  const job0Status = useRef("active")
-  const job1Status = useRef("ready-for-next")
-  const desc0Status = useRef("active")
-  const desc1Status = useRef("ready-for-next")
-  const centerImg0Status = useRef("active")
-  const centerImg1Status = useRef("ready-for-next")
-  const namePlate0Status = useRef("active")
-  const namePlate1Status = useRef("ready-for-next")
-  const button0Status = useRef("active")
-  const button1Status = useRef("ready-for-next")
+  const namePlate0 = useRef(null)
+  const namePlate1 = useRef(null)
+  const centerImg0 = useRef(null)
+  const centerImg1 = useRef(null)
+  const rating0 = useRef(null)
+  const rating1 = useRef(null)
+  const stars0 = useRef(null)
+  const stars1 = useRef(null)
+  const name0 = useRef(null)
+  const name1 = useRef(null)
+  const job0 = useRef(null)
+  const job1 = useRef(null)
+  const desc0 = useRef(null)
+  const desc1 = useRef(null)
+  const button0 = useRef(null)
+  const button1 = useRef(null)
+  // const rating0Status = useRef("active")
+  // const rating1Status = useRef("ready-for-next")
+  // const stars0Status = useRef("active")
+  // const stars1Status = useRef("ready-for-next")
+  // const name0Status = useRef("active")
+  // const name1Status = useRef("ready-for-next")
+  // const job0Status = useRef("active")
+  // const job1Status = useRef("ready-for-next")
+  // const desc0Status = useRef("active")
+  // const desc1Status = useRef("ready-for-next")
+  // const centerImg0Status = useRef("active")
+  // const centerImg1Status = useRef("ready-for-next")
+  // const namePlate0Status = useRef("active")
+  // const namePlate1Status = useRef("ready-for-next")
+  // const button0Status = useRef("active")
+  // const button1Status = useRef("ready-for-next")
 
   const transitionArgs = [
-    index, namePlate0, namePlate1, centerImg0, centerImg1, rating0, rating1, stars0, stars1, name0, name1, button0Status, button1Status,
-    job0, job1, desc0, desc1, buttonBg0, buttonBg1, rating0Status, rating1Status, stars0Status, stars1Status, name0Status, name1Status,
-    job0Status, job1Status, desc0Status, desc1Status, centerImg0Status, centerImg1Status, namePlate0Status, namePlate1Status
+    setStarsProps, index, namePlate0, namePlate1, centerImg0, centerImg1, rating0, rating1, stars0, stars1,
+    job0, job1, desc0, desc1, button0, button1, name0, name1,
   ]
 
   const handleNext = () => {
@@ -80,45 +82,45 @@ function App() {
 
   useEffect(() => {
     helpers.handleRotationChanges(index, setRotation, action, setImgRotation)
-  }, [index, action])
+  }, [index])
 
   return (
     <div className="App">
       <section className="text_section">
         <div style={{ color: background }} className="rating_wrap">
-          <p data-status={ rating0Status.current }>{ rating0.current }</p>
-          <p data-status={ rating1Status.current }>{ rating1.current }</p>
+          <p data-status="active" ref={rating0}>{ DATA[0].rating }</p>
+          <p data-status="ready-for-next" ref={rating1}>{  }</p>
         </div>
         <div className="stars_wrap">
-          <div data-status={ stars0Status.current }>
+          <div data-status="active" ref={ stars0 }>
             <ErrorBoundary>
-              <RatingStars starProps={ stars0.current } />
+              <RatingStars starProps={ starsProps.stars0 } />
             </ErrorBoundary>
           </div>
-          <div data-status={ stars1Status.current }>
+          <div data-status="active" ref={ stars1 }>
             <ErrorBoundary>
-              <RatingStars starProps={ stars1.current } />
+              <RatingStars starProps={ starsProps.stars1 } />
             </ErrorBoundary>
           </div>
         </div>
         <div className="name_wrap">
-          <p data-status={ name0Status.current }>{ name0.current }</p>
-          <p data-status={ name1Status.current }>{ name1.current }</p>
+          <p data-status="active" ref={ name0 }>{ DATA[0].name }</p>
+          <p data-status="ready-for-next" ref={ name1 }>{  }</p>
         </div>
         <div className="job_wrap">
-          <p data-status={ job0Status.current }>{ job0.current }</p>
-          <p data-status={ job1Status.current }>{ job1.current }</p>
+          <p data-status="active" ref={ job0 }>{ DATA[0].job }</p>
+          <p data-status="ready-for-next" ref={ job1 }>{  }</p>
         </div>
         <div className="desc_wrap">
-          <p data-status={ desc0Status.current }>{ desc0.current }</p>
-          <p data-status={ desc1Status.current }>{ desc1.current }</p>
+          <p data-status="active" ref={ desc0 }>{ DATA[0].description }</p>
+          <p data-status="ready-for-next" ref={ desc1 }>{  }</p>
         </div>
         <div className="button_track">
           <button style={{ boxShadow: `0.25rem 0.15rem 4rem ${background}` }}>
             <div className="btn_wrap">
               <p>Book a session</p>
-              <div style={{ background: buttonBg0.current }} data-status={ button0Status.current }></div>
-              <div style={{ background: buttonBg1.current }} data-status={ button1Status.current }></div>
+              <div data-status="active" ref={ button0 }></div>
+              <div data-status="ready-for-next" ref={ button1 }></div>
             </div>
           </button>
         </div>
@@ -128,8 +130,8 @@ function App() {
           <div className="second__big_circle_wrap">
             <div className="main_img">
               <figure>
-                <img data-status={ centerImg0Status.current } src={ centerImg0.current[0] } alt={ centerImg0.current[1] } />
-                <img data-status={ centerImg1Status.current } src={ centerImg1.current[0] } alt={ centerImg1.current[1] } />
+                <img data-status="active" src={ DATA[0].image } alt={ DATA[0].name } ref={ centerImg0 } />
+                <img data-status="inactive-from-next" src={ DATA[0].image } alt={ DATA[0].name } ref={ centerImg1 } />
               </figure>
             </div>
           </div>
@@ -183,11 +185,11 @@ function App() {
             </button>
           </div>
           <div className="name_box">
-            <div className="name_plate" data-status={ namePlate0Status.current } >
-              <p>{ namePlate0.current }</p>
+            <div className="name_plate" data-status="active" ref={ namePlate0 } >
+              <p>{ DATA[0].name }</p>
             </div>
-            <div className="name_plate" data-status={ namePlate1Status.current } >
-              <p>{ namePlate1.current }</p>
+            <div className="name_plate" data-status="ready-for-next" ref={ namePlate1 } >
+              <p>{  }</p>
             </div>
           </div>
         </section>
